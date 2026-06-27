@@ -25,13 +25,16 @@ const EXPECTED_ORDER = [
   "loops",
   "agentes",
   "donde-vive",
+  "hooks",
+  "multi-agente",
   "evals",
   "seguridad",
+  "costos",
   "buen-uso",
   "recursos",
 ];
 
-assert.equal(modules.length, 19, "the guide should include 19 modules");
+assert.equal(modules.length, 22, "the guide should include 22 modules");
 assert.deepEqual(
   modules.map((module) => module.id),
   EXPECTED_ORDER,
@@ -120,7 +123,7 @@ assert.ok(
   "no module should ever be locked",
 );
 assert.equal(getOverallProgress(initial).completed, 0);
-assert.equal(getOverallProgress(initial).total, 19);
+assert.equal(getOverallProgress(initial).total, 22);
 
 const afterDiagnostic = completeModule(initial, "diagnostico", {
   selectedTask: "Preparar reuniones con clientes",

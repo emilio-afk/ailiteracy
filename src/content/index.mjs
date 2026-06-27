@@ -16,8 +16,11 @@ import mcp from "./mcp.mjs";
 import loops from "./loops.mjs";
 import agentes from "./agentes.mjs";
 import dondeVive from "./donde-vive.mjs";
+import hooks from "./hooks.mjs";
+import multiAgente from "./multi-agente.mjs";
 import evals from "./evals.mjs";
 import seguridad from "./seguridad.mjs";
+import costos from "./costos.mjs";
 import buenUso from "./buen-uso.mjs";
 import recursos from "./recursos.mjs";
 import resources from "./resources.mjs";
@@ -38,9 +41,12 @@ export const modules = [
   loops, // 12  ── Hacer más
   agentes, // 13  ── Construir y operar
   dondeVive, // 14  ── Construir y operar
-  evals, // 15  ── Construir y operar
-  seguridad, // 16  ── Construir y operar
-  buenUso, // 17  ── Construir y operar
-  recursos, // 18
+  hooks, // 15  ── Construir y operar
+  multiAgente, // 16  ── Construir y operar
+  evals, // 17  ── Construir y operar
+  seguridad, // 18  ── Construir y operar
+  costos, // 19  ── Construir y operar
+  buenUso, // 20  ── Construir y operar
+  recursos, // 21
 ];
 export { resources };

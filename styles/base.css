@@ -29,7 +29,7 @@
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --sb-width: 256px;
-  --content-w: 860px;
+  --content-w: 760px;
 }
 
 * { box-sizing: border-box; }

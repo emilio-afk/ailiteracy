@@ -74,7 +74,6 @@ function render() {
   renderSections();
   renderResources();
   initWidgets();
-  renderCustomExamples("");
 }
 
 function renderToc() {

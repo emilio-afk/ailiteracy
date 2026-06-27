@@ -41,11 +41,21 @@
 /* Pagina (seccion) */
 .page {
   padding: 68px 0;
-  border-top: 1px solid var(--line);
   scroll-margin-top: 38px;
+  position: relative;
 }
 
-.page:first-child { border-top: 0; }
+/* Separador horizontal que empieza DESPUÉS del borde de color, para no cortar la línea vertical */
+.page + .page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 3px; /* salta el ancho del border-left de color */
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
 .page::after { content: ""; display: block; clear: both; }
 
 /* Color de acento por fase */

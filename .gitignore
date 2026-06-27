@@ -1,0 +1,15 @@
+.DS_Store
+.playwright-cli/
+.server.pid
+node_modules/
+
+# Backups locales del refactor
+src.bak-*/
+*.bak
+
+# Artefactos y salidas locales
+output/
+outputs/
+
+# Config local del entorno
+.claude/

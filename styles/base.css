@@ -1,0 +1,53 @@
+:root {
+  color-scheme: light;
+
+  /* Marca Astrolab (solo acentos) */
+  --indigo: #011963;
+  --cobalto: #0a56c6;
+
+  /* Neutros calmados tipo Notion */
+  --bg: #ffffff;
+  --sb: #fbfbfa;
+  --ink: #34353b;
+  --heading: #1d2130;
+  --soft: #6a6e78;
+  --faint: #9aa0a8;
+  --line: #ececea;
+  --line-soft: #f1f1ef;
+  --hover: #efeeec;
+  --active: #eaf0fb;
+
+  /* Callouts */
+  --c-idea: #eef3fb;
+  --c-bad: #fbf2f0;
+  --c-good: #eef8f1;
+  --c-info: #f6f7f9;
+  --c-task: #f7f7f4;
+  --c-code: #1d2130;
+
+  --font: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --sb-width: 256px;
+  --content-w: 860px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+
+a { color: var(--cobalto); }
+strong { font-weight: 600; color: var(--heading); }
+em { font-style: italic; }

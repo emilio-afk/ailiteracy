@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Taller de IA — Wiki</title>
+    <meta
+      name="description"
+      content="Wiki de consulta sobre fundamentos prácticos de IA: prompts, contexto, tokens, Markdown, tools, skills, MCP, loops y agentes."
+    >
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/layout.css">
+    <link rel="stylesheet" href="./styles/components.css">
+    <link rel="stylesheet" href="./styles/widgets.css">
+  </head>
+  <body>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir índice" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="layout">
+      <div class="toc-backdrop" id="tocBackdrop" hidden></div>
+
+      <aside class="sidebar" id="toc" aria-label="Índice de contenidos">
+        <a class="brand" href="#inicio" aria-label="Astrolab — Taller de IA">
+          <span class="brand-word">astrolab<span class="brand-dot">.</span></span>
+          <span class="brand-sub">Taller de IA</span>
+        </a>
+
+        <div class="side-search">
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Buscar…"
+            aria-label="Buscar en la wiki"
+            autocomplete="off"
+          >
+        </div>
+
+        <nav class="side-nav" id="tocNav"></nav>
+      </aside>
+
+      <button class="toc-toggle" id="tocToggle" type="button" aria-label="Colapsar índice" aria-expanded="true" title="Colapsar índice">
+        <span class="toc-toggle-icon" aria-hidden="true">‹</span>
+      </button>
+
+      <main class="doc" id="inicio">
+        <header class="page-title">
+          <p class="eyebrow">Wiki de consulta interna</p>
+          <h1>Trabajar con IA, sin tecnicismos</h1>
+          <p class="lead">
+            Una referencia para entender lo esencial: qué hace un modelo, cómo pedirle bien las cosas,
+            cómo cuidar el contexto y cómo llegar a agentes útiles. Léela de corrido o salta al tema que
+            necesites desde el índice.
+          </p>
+          <div class="callout callout-task">
+            <span class="callout-ico" aria-hidden="true">📝</span>
+            <div>
+              <p class="callout-head">Tu tarea real <span>(opcional)</span></p>
+              <p class="callout-sub">Escribe una tarea que quieras mejorar con IA. La verás citada como ejemplo a lo largo de la wiki.</p>
+              <textarea id="selectedTask" rows="2" placeholder="Ej: preparar reuniones con clientes usando minutas, pendientes y riesgos."></textarea>
+            </div>
+          </div>
+        </header>
+
+        <div id="docSections"></div>
+
+        <section class="page" id="biblioteca">
+          <p class="meta">Biblioteca</p>
+          <h2>Plantillas para copiar</h2>
+          <p class="lead">Listas para llevarte a tu trabajo diario.</p>
+          <div class="resource-list" id="resourceList"></div>
+        </section>
+
+        <p class="no-results" id="noResults" hidden>Sin resultados para tu búsqueda.</p>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./src/main.mjs"></script>
+  </body>
+</html>

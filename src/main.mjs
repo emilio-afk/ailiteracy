@@ -1,5 +1,5 @@
 import { modules, phases, resources, createInitialProgress } from "./app-data.mjs";
-import { initWidgets, renderCustomExamples, widgetIds } from "./widgets.mjs";
+import { initWidgets, widgetIds } from "./widgets.mjs";
 
 const storageKey = "taller-ia-progress-v1";
 const state = { progress: loadProgress() };
@@ -15,7 +15,6 @@ const menuToggle = document.querySelector("#menuToggle");
 const docSections = document.querySelector("#docSections");
 const resourceList = document.querySelector("#resourceList");
 const noResults = document.querySelector("#noResults");
-const taskField = document.querySelector("#selectedTask");
 const toast = document.querySelector("#toast");
 
 // Iconos Lucide — deben declararse antes de render()
@@ -52,7 +51,6 @@ const MODULE_ICONS = {
 };
 
 render();
-setupTask();
 setupScrollSpy();
 setupNav();
 
@@ -75,7 +73,7 @@ function render() {
   renderSections();
   renderResources();
   initWidgets();
-  renderCustomExamples(state.progress.selectedTask ?? "");
+  renderCustomExamples("");
 }
 
 function renderToc() {
@@ -447,14 +445,6 @@ function renderResources() {
   });
 }
 
-function setupTask() {
-  taskField.value = state.progress.selectedTask ?? "";
-  taskField.addEventListener("input", () => {
-    state.progress = { ...state.progress, selectedTask: taskField.value };
-    saveProgress();
-    renderCustomExamples(taskField.value);
-  });
-}
 
 
 function setupScrollSpy() {

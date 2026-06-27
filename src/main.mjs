@@ -53,6 +53,7 @@ const MODULE_ICONS = {
 render();
 setupScrollSpy();
 setupNav();
+setupBreadcrumb();
 
 function loadProgress() {
   try {
@@ -114,7 +115,7 @@ function renderSections() {
       const phase = phases.find((item) => item.id === module.phase);
       const meta = `${module.number} · ${phase ? phase.label : ""}`;
       return `
-        <section class="page" id="m-${module.id}">
+        <section class="page" id="m-${module.id}" data-phase="${module.phase}">
           <p class="meta">${meta}</p>
           <h2>${module.title}</h2>
           ${module.ideaPrincipal ? `<p class="lead">${inline(module.ideaPrincipal)}</p>` : ""}
@@ -464,6 +465,44 @@ function setupScrollSpy() {
   );
 
   sections.forEach((section) => section && observer.observe(section));
+}
+
+function setupBreadcrumb() {
+  const crumb = document.createElement("div");
+  crumb.id = "breadcrumb";
+  crumb.setAttribute("aria-hidden", "true");
+  document.querySelector(".doc").prepend(crumb);
+
+  const sections = [...document.querySelectorAll(".page[data-phase]")];
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const phase = entry.target.dataset.phase;
+        const metaText = entry.target.querySelector(".meta")?.textContent ?? "";
+        const titleText = entry.target.querySelector("h2")?.textContent ?? "";
+        crumb.innerHTML = `<span class="crumb-phase">${metaText}</span><span class="crumb-title">${titleText}</span>`;
+        crumb.dataset.phase = phase;
+        crumb.classList.add("is-visible");
+      });
+    },
+    { rootMargin: "-1px 0px -85% 0px", threshold: 0 },
+  );
+
+  // Hide breadcrumb when the page header is visible
+  const header = document.querySelector(".page-title");
+  if (header) {
+    const headerObs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) crumb.classList.remove("is-visible");
+      },
+      { threshold: 0.1 },
+    );
+    headerObs.observe(header);
+  }
+
+  sections.forEach((s) => observer.observe(s));
 }
 
 function setupNav() {

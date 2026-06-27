@@ -45,17 +45,7 @@
   position: relative;
 }
 
-/* Separador horizontal: position:absolute dentro del padding-box, no toca el border-left */
-.page + .page::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0; /* padding-box left edge = justo después del border-left de 3px */
-  right: 0;
-  height: 1px;
-  background: var(--line);
-}
-
+.page + .page { border-top: 1px solid var(--line); }
 .page::after { content: ""; display: block; clear: both; }
 
 /* Color de acento por fase */
@@ -63,12 +53,6 @@
 [data-phase="pedir"]     { --phase-color: #6b3fd4; }
 [data-phase="hacer"]     { --phase-color: #0d8a68; }
 [data-phase="construir"] { --phase-color: #b8450a; }
-
-[data-phase] {
-  border-left: 3px solid var(--phase-color, var(--faint));
-  padding-left: 28px;
-  margin-left: -31px;
-}
 
 .meta {
   margin: 0 0 8px;

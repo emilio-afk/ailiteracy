@@ -71,9 +71,40 @@ function saveProgress() {
 
 function render() {
   renderToc();
+  renderPhaseCards();
   renderSections();
   renderResources();
   initWidgets();
+}
+
+function renderPhaseCards() {
+  const container = document.querySelector("#phaseCards");
+  if (!container) return;
+  const PHASE_COLORS = {
+    entender:  "#0a56c6",
+    pedir:     "#6b3fd4",
+    hacer:     "#0d8a68",
+    construir: "#b8450a",
+  };
+  container.innerHTML = `
+    <div class="phase-cards">
+      ${phases.map((phase) => {
+        const mods = docModules.filter((m) => m.phase === phase.id);
+        const color = PHASE_COLORS[phase.id] ?? "#9aa0a8";
+        return `
+          <div class="phase-card">
+            <div class="phase-card-head" style="--pc: ${color}">
+              <span class="phase-card-label">${phase.label}</span>
+              <p class="phase-card-hint">${phase.hint}</p>
+            </div>
+            <ul class="phase-card-list">
+              ${mods.map((m) => `<li><a href="#m-${m.id}">${m.title}</a></li>`).join("")}
+            </ul>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
 }
 
 function renderToc() {

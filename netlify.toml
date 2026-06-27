@@ -1,0 +1,10 @@
+# Sitio estático sin build: Netlify solo sirve la raíz del repo.
+[build]
+  publish = "."
+
+# Cabeceras básicas de seguridad/caché
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

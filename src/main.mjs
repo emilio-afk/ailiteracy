@@ -14,14 +14,45 @@ const tocBackdrop = document.querySelector("#tocBackdrop");
 const menuToggle = document.querySelector("#menuToggle");
 const docSections = document.querySelector("#docSections");
 const resourceList = document.querySelector("#resourceList");
-const searchInput = document.querySelector("#searchInput");
 const noResults = document.querySelector("#noResults");
 const taskField = document.querySelector("#selectedTask");
 const toast = document.querySelector("#toast");
 
+// Iconos Lucide — deben declararse antes de render()
+const PHASE_ICONS = {
+  entender:  `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  pedir:     `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  hacer:     `<svg class="nav-ico" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  construir: `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+};
+
+const MODULE_ICONS = {
+  "diagnostico":          `<svg class="nav-ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  "fundamentos":          `<svg class="nav-ico" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+  "modelos-multimodal":   `<svg class="nav-ico" viewBox="0 0 24 24"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>`,
+  "prompt":               `<svg class="nav-ico" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>`,
+  "output":               `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+  "tecnicas":             `<svg class="nav-ico" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>`,
+  "contexto":             `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>`,
+  "markdown":             `<svg class="nav-ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15V9l2.5 3 2.5-3v6"/><path d="M17 11l-2 2 2 2"/></svg>`,
+  "tools-skills":         `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  "palancas":             `<svg class="nav-ico" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`,
+  "conocimiento-memoria": `<svg class="nav-ico" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+  "mcp":                  `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
+  "loops":                `<svg class="nav-ico" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+  "agentes":              `<svg class="nav-ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  "donde-vive":           `<svg class="nav-ico" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
+  "hooks":                `<svg class="nav-ico" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  "multi-agente":         `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  "evals":                `<svg class="nav-ico" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  "seguridad":            `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  "costos":               `<svg class="nav-ico" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  "buen-uso":             `<svg class="nav-ico" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+  "biblioteca":           `<svg class="nav-ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+};
+
 render();
 setupTask();
-setupSearch();
 setupScrollSpy();
 setupNav();
 
@@ -52,10 +83,11 @@ function renderToc() {
     .map((phase) => {
       const items = docModules.filter((module) => module.phase === phase.id);
       if (!items.length) return "";
+      const phaseIco = PHASE_ICONS[phase.id] ?? "";
       return `
         <div class="nav-group">
-          <p class="nav-phase">${phase.label}</p>
-          ${items.map((module) => navLink(`m-${module.id}`, module.title)).join("")}
+          <p class="nav-phase">${phaseIco}${phase.label}</p>
+          ${items.map((module) => navLink(`m-${module.id}`, module.title, MODULE_ICONS[module.id] ?? "")).join("")}
         </div>
       `;
     })
@@ -63,15 +95,16 @@ function renderToc() {
 
   tocNav.innerHTML = `${groups}
     <div class="nav-group nav-extra">
-      ${navLink("biblioteca", "Biblioteca")}
+      ${navLink("biblioteca", "Biblioteca", MODULE_ICONS["biblioteca"] ?? "")}
     </div>`;
 
   tocNav.querySelectorAll(".nav-link").forEach((link) => link.addEventListener("click", closeDrawer));
 }
 
-function navLink(anchor, title) {
+function navLink(anchor, title, ico = "") {
   return `
     <a class="nav-link" href="#${anchor}" data-toc="${anchor}">
+      ${ico}
       <span class="nav-text">${title}</span>
     </a>
   `;
@@ -83,7 +116,7 @@ function renderSections() {
       const phase = phases.find((item) => item.id === module.phase);
       const meta = `${module.number} · ${phase ? phase.label : ""}`;
       return `
-        <section class="page" id="m-${module.id}" data-search="${searchText(module)}">
+        <section class="page" id="m-${module.id}">
           <p class="meta">${meta}</p>
           <h2>${module.title}</h2>
           ${module.ideaPrincipal ? `<p class="lead">${inline(module.ideaPrincipal)}</p>` : ""}
@@ -391,7 +424,7 @@ function renderResources() {
   resourceList.innerHTML = resources
     .map(
       (resource) => `
-        <article class="resource-card" data-search="${escapeAttr(`${resource.title} ${resource.description}`)}">
+        <article class="resource-card">
           <div class="resource-head">
             <h3>${resource.title}</h3>
             <p>${resource.description}</p>
@@ -423,29 +456,6 @@ function setupTask() {
   });
 }
 
-function setupSearch() {
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.trim().toLowerCase();
-    let visible = 0;
-
-    docSections.querySelectorAll(".page").forEach((section) => {
-      const match = !query || section.dataset.search.includes(query);
-      section.hidden = !match;
-      if (match) visible += 1;
-    });
-
-    const library = document.querySelector("#biblioteca");
-    let resourceMatches = 0;
-    resourceList.querySelectorAll(".resource-card").forEach((card) => {
-      const match = !query || card.dataset.search.includes(query);
-      card.hidden = !match;
-      if (match) resourceMatches += 1;
-    });
-    library.hidden = query ? resourceMatches === 0 : false;
-
-    noResults.hidden = !(query && visible === 0 && resourceMatches === 0);
-  });
-}
 
 function setupScrollSpy() {
   const sections = [...document.querySelectorAll(".page")];
@@ -521,38 +531,6 @@ function flatten(value) {
   return value ?? "";
 }
 
-function searchText(module) {
-  const pointsText = (module.points ?? []).map((point) => `${point.term} ${point.text}`).join(" ");
-  const ejemploText = ejemploSearchText(module.ejemplo);
-  return escapeAttr(
-    [
-      module.title,
-      module.enUnaFrase,
-      module.objective,
-      module.ideaPrincipal,
-      flatten(module.whatIs),
-      pointsText,
-      module.dondeVive,
-      module.comoOperar,
-      ejemploText,
-      ...module.concepts,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .replaceAll("*", ""),
-  );
-}
-
-function ejemploSearchText(ejemplo) {
-  if (!ejemplo) return "";
-  const parts = [ejemplo.escenario?.texto, ejemplo.resultado];
-  for (const seccion of ejemplo.secciones ?? []) {
-    for (const turno of seccion.turnos ?? []) {
-      parts.push(turno.texto, turno.nota, turno.concepto);
-    }
-  }
-  return parts.filter(Boolean).join(" ").replaceAll("\n", " ");
-}
 
 async function copyResource(resourceId) {
   const resource = resources.find((item) => item.id === resourceId);

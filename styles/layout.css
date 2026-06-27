@@ -18,9 +18,9 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 18px 12px;
-  background: var(--sb);
-  border-right: 1px solid var(--line);
+  padding: 18px 10px;
+  background: var(--indigo);
+  border-right: none;
 }
 
 .brand {
@@ -31,60 +31,65 @@
   text-decoration: none;
 }
 
-.brand-word { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; color: var(--indigo); }
-.brand-dot { color: var(--cobalto); }
-.brand-sub { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); }
-
-.side-search { padding: 0 4px; }
-
-#searchInput {
-  width: 100%;
-  height: 34px;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 0.9rem;
-}
-
-#searchInput:focus { outline: none; border-color: var(--cobalto); }
+.brand-word { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; color: #fff; }
+.brand-dot { color: rgba(255,255,255,0.45); }
+.brand-sub { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.38); }
 
 .side-nav { flex: 1; }
 
-.nav-group { margin-bottom: 16px; }
+.nav-group { margin-bottom: 14px; }
 
 .nav-phase {
-  margin: 0 0 4px;
-  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 3px;
+  padding: 4px 8px;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  font-size: 0.63rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: rgba(255,255,255,0.38);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 5px 8px;
+  gap: 8px;
+  padding: 4px 8px;
   border-radius: 6px;
-  color: var(--soft);
+  color: rgba(255,255,255,0.6);
   text-decoration: none;
-  font-size: 0.9rem;
-  line-height: 1.3;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
-.nav-link:hover { background: var(--hover); color: var(--heading); }
+.nav-link:hover {
+  background: rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.9);
+}
 
 .nav-link.active {
-  background: var(--active);
-  color: var(--indigo);
+  background: rgba(255,255,255,0.14);
+  color: #fff;
   font-weight: 600;
 }
 
-.nav-extra { border-top: 1px solid var(--line); padding-top: 12px; }
+.nav-extra { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; }
+
+/* Iconos Lucide en nav */
+.nav-ico {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-phase .nav-ico { width: 12px; height: 12px; opacity: 0.7; }
 
 /* Chevron de colapso (escritorio) */
 .toc-toggle {

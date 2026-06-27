@@ -45,12 +45,12 @@
   position: relative;
 }
 
-/* Separador horizontal que empieza DESPUÉS del borde de color, para no cortar la línea vertical */
+/* Separador horizontal: position:absolute dentro del padding-box, no toca el border-left */
 .page + .page::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 3px; /* salta el ancho del border-left de color */
+  left: 0; /* padding-box left edge = justo después del border-left de 3px */
   right: 0;
   height: 1px;
   background: var(--line);

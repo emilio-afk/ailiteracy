@@ -22,6 +22,10 @@
   margin: 48px 0 0;
 }
 
+@media (max-width: 640px) {
+  .phase-cards { grid-template-columns: 1fr; }
+}
+
 .phase-card {
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -64,13 +68,17 @@
 .phase-card-list li { font-size: 0.84rem; }
 
 .phase-card-list a {
-  color: var(--soft);
+  color: var(--ink);
   text-decoration: none;
   display: block;
   padding: 3px 0;
 }
 
-.phase-card-list a:hover { color: var(--cobalto); }
+.phase-card-list a:hover {
+  color: var(--pc, var(--cobalto));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 
 /* Portada */
 .page-title { padding-bottom: 8px; }
@@ -272,13 +280,13 @@
 .callout-head { font-weight: 700; color: var(--heading); font-size: 0.88rem; letter-spacing: 0.01em; }
 .callout-head span { font-weight: 400; color: var(--faint); }
 
-/* Nota lateral: color + etiqueta, sin emoji */
+/* Nota lateral: mismo tratamiento de caja que .callout */
 .note {
   margin: 22px 0;
   padding: 12px 16px 12px 17px;
   border-left: 3px solid var(--cobalto);
   background: var(--sb);
-  border-radius: 0 10px 10px 0;
+  border-radius: 10px;
 }
 
 .note-label {

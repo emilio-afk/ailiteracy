@@ -134,7 +134,7 @@ function navLink(anchor, title, ico = "") {
   return `
     <a class="nav-link" href="#${anchor}" data-toc="${anchor}">
       ${ico}
-      <span class="nav-text">${title}</span>
+      <span class="nav-link-text">${title}</span>
     </a>
   `;
 }

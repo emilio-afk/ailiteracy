@@ -38,15 +38,26 @@
   border-bottom: 1px solid color-mix(in srgb, var(--pc) 18%, transparent);
 }
 
+.phase-card-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
 .phase-card-label {
-  display: block;
   font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--pc);
-  margin-bottom: 4px;
+}
+
+.phase-card-count {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: color-mix(in srgb, var(--pc) 60%, transparent);
 }
 
 .phase-card-hint {
@@ -82,6 +93,43 @@
 
 /* Portada */
 .page-title { padding-bottom: 8px; }
+
+.start-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--cobalto);
+  text-decoration: none;
+}
+
+.start-link:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Cierre de wiki */
+.wiki-end {
+  margin-top: 80px;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  display: grid;
+  gap: 14px;
+}
+
+.wiki-end-msg {
+  font-size: 1rem;
+  color: var(--soft);
+  line-height: 1.6;
+}
+
+.wiki-end-back {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  text-decoration: none;
+}
+
+.wiki-end-back:hover { color: var(--cobalto); }
 
 .page-title h1 {
   margin: 0;

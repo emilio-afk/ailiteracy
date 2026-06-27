@@ -94,7 +94,10 @@ function renderPhaseCards() {
         return `
           <div class="phase-card">
             <div class="phase-card-head" style="--pc: ${color}">
-              <span class="phase-card-label">${phase.label}</span>
+              <div class="phase-card-head-row">
+                <span class="phase-card-label">${phase.label}</span>
+                <span class="phase-card-count">${mods.length} temas</span>
+              </div>
               <p class="phase-card-hint">${phase.hint}</p>
             </div>
             <ul class="phase-card-list">
